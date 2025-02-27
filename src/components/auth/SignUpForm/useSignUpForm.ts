@@ -50,7 +50,7 @@ export const useSignUpForm = ({ onSuccess, onError }: SignUpFormProps) => {
 		(key: FormType) => (e: ChangeEvent<HTMLInputElement>) => {
 			const { value } = e.target;
 			setFormState(prev => ({ ...prev, [key]: value }));
-			setErrors(prev => ({ ...prev, [key]: '' }));
+			setErrors(prev => ({ ...prev, [key]: "" }));
 		},
 		[]
 	);
