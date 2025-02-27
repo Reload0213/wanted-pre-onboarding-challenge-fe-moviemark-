@@ -1,9 +1,9 @@
 import { atom, selector } from "recoil";
 
-import type { DecodedToken } from "@/types/auth";
+import type { User } from "@/types/auth";
 
 interface AuthState {
-  user: DecodedToken | null;
+  user: Pick<User, "email"> | null;
 }
 
 export const authState = atom<AuthState>({
@@ -17,6 +17,6 @@ export const isLoggedInState = selector({
 	key: "isLoggedInState",
 	get: ({ get }) => {
 		const { user } = get(authState);
-		return !!user?.sub;
+		return !!user?.email;
 	},
 });

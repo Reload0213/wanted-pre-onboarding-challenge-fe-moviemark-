@@ -4,19 +4,27 @@ import { useAuth } from "@/hooks/useAuth";
 import { useToastMessageContext } from "@/providers/ToastMessageProvider";
 import { validateEmail, validatePassword } from "@/utils/validate";
 
+type FormType = "email" | "password"
+
 interface UseLoginFormProps {
   onSuccess?: () => void;
   onError?: (error: Error) => void;
 }
 
+interface FormState {
+  email?: string;
+  password?: string;
+}
 interface FormErrors {
   email?: string;
   password?: string;
 }
 
 export const useLoginForm = ({ onSuccess, onError }: UseLoginFormProps) => {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const [formState, setFormState] = useState<FormState>({
+		email: "",
+		password: "",
+	});
 	const [errors, setErrors] = useState<FormErrors>({});
 	const [isLoading, setIsLoading] = useState(false);
 	const { showToastMessage } = useToastMessageContext();
@@ -25,25 +33,24 @@ export const useLoginForm = ({ onSuccess, onError }: UseLoginFormProps) => {
 	const validateForm = useCallback(() => {
 		const newErrors: FormErrors = {};
 
-		const emailError = validateEmail(email);
+		const emailError = validateEmail(formState?.email);
 		if (emailError) newErrors.email = emailError;
 
-		const passwordError = validatePassword(password);
+		const passwordError = validatePassword(formState?.password);
 		if (passwordError) newErrors.password = passwordError;
 
 		setErrors(newErrors);
 		return Object.keys(newErrors).length === 0;
-	}, [email, password]);
+	}, [formState?.email, formState?.password]);
 
-	const handleEmailChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-		setEmail(e.target.value);
-		setErrors(prev => ({ ...prev, email: "" }));
-	}, []);
-
-	const handlePasswordChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-		setPassword(e.target.value);
-		setErrors(prev => ({ ...prev, password: "" }));
-	}, []);
+	const handleLoginFormChange = useCallback(
+		(key: FormType) => (e: ChangeEvent<HTMLInputElement>) => {
+			const { value } = e.target;
+			setFormState(prev => ({ ...prev, [key]: value }));
+			setErrors(prev => ({ ...prev, [key]: "" }));
+		},
+		[]
+	);
 
 	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
@@ -52,8 +59,7 @@ export const useLoginForm = ({ onSuccess, onError }: UseLoginFormProps) => {
 
 		setIsLoading(true);
 		try {
-			await login({ email, password });
-			showToastMessage({ type: "success", message: "로그인 성공!" });
+			await login({ email: formState.email, password: formState.password });
 			onSuccess?.();
 		} catch (error) {
 			const errorMessage = error instanceof Error ? error.message : "로그인 실패";
@@ -65,12 +71,10 @@ export const useLoginForm = ({ onSuccess, onError }: UseLoginFormProps) => {
 	};
 
 	return {
-		email,
-		password,
+		formState,
 		errors,
 		isLoading,
 		handleSubmit,
-		handleEmailChange,
-		handlePasswordChange,
+		handleLoginFormChange,
 	};
 };

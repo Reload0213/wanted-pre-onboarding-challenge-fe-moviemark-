@@ -15,6 +15,13 @@ export interface AuthError extends Error {
 }
 
 export interface DecodedToken {
-  sub: string;        // 유저 ID
+  id: number;         // 유저 ID
+  sub: string;        // 유저 Email
   exp: number;        // 만료 시간
+}
+
+export interface User{
+  id: number;
+  email: string;
+  is_active: boolean;
 }

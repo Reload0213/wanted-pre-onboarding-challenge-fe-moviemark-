@@ -14,13 +14,11 @@ export interface LoginFormProps {
 
 const LoginForm = ({ onSuccess, onError }: LoginFormProps) => {
 	const {
-		email,
-		password,
+		formState,
 		errors,
 		isLoading,
 		handleSubmit,
-		handleEmailChange,
-		handlePasswordChange,
+		handleLoginFormChange,
 	} = useLoginForm({ onSuccess, onError });
 
 	return (
@@ -35,8 +33,8 @@ const LoginForm = ({ onSuccess, onError }: LoginFormProps) => {
 				placeholder="이메일을 입력하세요"
 				icon={<EmailIcon />}
 				required
-				value={email}
-				onChange={handleEmailChange}
+				value={formState?.email}
+				onChange={handleLoginFormChange("email")}
 				validationState={errors.email ? "invalid" : "default"}
 				error={errors.email}
 				disabled={isLoading}
@@ -46,8 +44,8 @@ const LoginForm = ({ onSuccess, onError }: LoginFormProps) => {
 				placeholder="비밀번호를 입력하세요"
 				icon={<LockIcon />}
 				required
-				value={password}
-				onChange={handlePasswordChange}
+				value={formState?.password}
+				onChange={handleLoginFormChange("password")}
 				validationState={errors.password ? "invalid" : "default"}
 				error={errors.password}
 				disabled={isLoading}
