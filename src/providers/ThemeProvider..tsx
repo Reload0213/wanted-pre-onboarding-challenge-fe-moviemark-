@@ -14,13 +14,13 @@ interface ThemeContextType {
 // Context 생성 및 기본값 설정
 // 다른 컴포넌트에서 useContext로 접근할 때 사용할 context
 const ThemeContext = createContext<ThemeContextType>({
-	theme: "light",
+	theme: "dark",
 	toggleTheme: () => {},
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
 	// 현재 테마 상태 관리
-	const [theme, setTheme] = useState<Theme>("light");
+	const [theme, setTheme] = useState<Theme>("dark");
 	// 컴포넌트가 클라이언트에서 마운트되었는지 확인하는 상태
 	// SSR에서 hydration 문제를 방지하기 위해 사용 (브라우저에서 완전히 준비가 됐을 때만 그리기)
 	const [mounted, setMounted] = useState(false);
