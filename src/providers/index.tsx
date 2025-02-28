@@ -1,5 +1,7 @@
 "use client";
 
+import { AuthGuard } from "@/components/auth/AuthGuard/AuthGuard";
+
 import { QueryProvider } from "./QueryProvider";
 import { RecoilProvider } from "./RecoilProvider";
 import { SidebarProvider } from "./SidebarProvider";
@@ -16,23 +18,26 @@ import { ToastMessageProvider } from "./ToastMessageProvider";
  *
  * Provider 순서:
  * 1. RecoilProvider (전역 상태)
- * 2. QueryProvider (API 통신)
- * 3. ThemeProvider (테마)
- * 4. ToastMessageProvider (알림)
- * 5. SidebarProvider (사이드바)
+ * 2. AuthGuard (로그인 정보 유지)
+ * 3. QueryProvider (API 통신)
+ * 4. ThemeProvider (테마)
+ * 5. ToastMessageProvider (알림)
+ * 6. SidebarProvider (사이드바)
  */
 export default function Providers({ children }: { children: React.ReactNode }) {
 	return (
 		<RecoilProvider>
-			<QueryProvider>
-				<ThemeProvider>
-					<ToastMessageProvider>
-						<SidebarProvider>
-							{children}
-						</SidebarProvider>
-					</ToastMessageProvider>
-				</ThemeProvider>
-			</QueryProvider>
+			<AuthGuard>
+				<QueryProvider>
+					<ThemeProvider>
+						<ToastMessageProvider>
+							<SidebarProvider>
+								{children}
+							</SidebarProvider>
+						</ToastMessageProvider>
+					</ThemeProvider>
+				</QueryProvider>
+			</AuthGuard>
 		</RecoilProvider>
 	);
 }

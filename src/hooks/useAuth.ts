@@ -20,11 +20,11 @@ export const useAuth = () => {
 			if (decodedToken) {
 				setAuthState({ user: { email: decodedToken.sub } });
 				showToastMessage({ type: "success", message: "로그인 되었습니다." });
-				router.push("/");
 			}
 			return response;
 		} catch (error) {
-			showToastMessage({ type: "error", message: "로그인에 실패했습니다." });
+			const errorMessage = error instanceof Error ? error.message : "로그인 실패";
+			showToastMessage({ type: "error", message: errorMessage });
 			throw error;
 		}
 	};

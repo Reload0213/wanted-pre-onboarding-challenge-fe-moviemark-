@@ -49,21 +49,21 @@ const Header = () => {
 							/>
 							<span className='text-link text-gray-50'>Log out</span>
 						</div>}
-					<div className="flex items-center gap-2">
-						<div>
-							<HamburgerButton />
-						</div>
-						<Link href="/signup" className="flex gap-2 py-3 px-4 cursor-pointer">
-							<Image
-								src="/icons/logout.svg"
-								alt="화살표"
-								width={16}
-								height={16}
-							/>
-							<span className='text-link text-gray-50'>SignUp</span>
-						</Link>
-					</div>
 				</div>
+				{!user && <div className="flex items-center gap-2">
+					<div>
+						<HamburgerButton />
+					</div>
+					<Link href="/signup" className="flex gap-2 py-3 px-4 cursor-pointer">
+						<Image
+							src="/icons/logout.svg"
+							alt="화살표"
+							width={16}
+							height={16}
+						/>
+						<span className='text-link text-gray-50'>SignUp</span>
+					</Link>
+				</div>}
 			</div>
 		</header>
 	);

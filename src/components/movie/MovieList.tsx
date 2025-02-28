@@ -35,7 +35,6 @@ const MovieList = () => {
 	// 영화 데이터 불러오기
 	const {
 		data,
-		// isLoading,
 		isError,
 		hasNextPage,
 		fetchNextPage,
@@ -78,7 +77,6 @@ const MovieList = () => {
 	}, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
 	// 로딩 중이거나 에러 발생 시 처리
-	// if (isLoading) return <p className="text-center">영화 목록을 가져오는 중...</p>;
 	if (isError) return <p className="text-center">영화 목록을 불러오지 못했습니다.</p>;
 
 	return (
