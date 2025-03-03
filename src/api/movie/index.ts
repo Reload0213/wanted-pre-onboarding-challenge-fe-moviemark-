@@ -13,7 +13,7 @@ export const getMovies = async (
 	page: number = 1,
 	item: number = ITEM_COUNT
 ): Promise<MovieListResponse> => {
-	return client<MovieListResponse>("/movies", {
+	return client<MovieListResponse>("/movies/secure", {
 		params: {
 			page: page.toString(),
 			item: item.toString(),
