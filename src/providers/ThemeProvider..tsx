@@ -32,10 +32,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 			// 1. localStorage에서 저장된 테마가 있는지 확인
 			const savedTheme = localStorage.getItem("theme") as Theme;
 			// 2. 시스템 테마 설정 확인 (다크모드인지 아닌지)
-			const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+			// const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+			// 우선 기본 다크 고정(현재 라이트는 그냥 색반전)
+			const defaultThemeColor = "dark";
 
 			// 저장된 테마가 있으면 그것을 사용, 없으면 시스템 테마 사용
-			const initialTheme = savedTheme || systemTheme;
+			const initialTheme = savedTheme || defaultThemeColor;
 			setTheme(initialTheme);
 
 			// HTML 문서에 테마 클래스 적용

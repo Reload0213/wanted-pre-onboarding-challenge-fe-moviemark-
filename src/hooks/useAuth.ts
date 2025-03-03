@@ -19,6 +19,7 @@ export const useAuth = () => {
 			const decodedToken = decodeJwt<DecodedToken>(response.access_token);
 			if (decodedToken) {
 				setAuthState({ user: { email: decodedToken.sub } });
+				router.push("/movies");
 				showToastMessage({ type: "success", message: "로그인 되었습니다." });
 			}
 			return response;
