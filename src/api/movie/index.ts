@@ -25,8 +25,8 @@ export const getMovies = async (
  * 특정 영화의 상세 정보를 가져오는 API
  * @param id 영화 ID
  */
-export const getMovie = async (id: string): Promise<Movie> => {
-	return client<Movie>(`/movies/${id}`);
+export const getMovieDetail = async (id: string): Promise<Movie> => {
+	return client<Movie>(`/movies/${id}/secure`);
 };
 
 /**

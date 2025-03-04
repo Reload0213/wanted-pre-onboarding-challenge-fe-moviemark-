@@ -15,7 +15,7 @@ const Header = () => {
 	const { logout } = useAuth();
 
 	return (
-		<header className="max-w-[120rem] w-full mx-auto h-[8rem] flex justify-between items-center py-4 px-8">
+		<header className="max-w-[155rem] w-full mx-auto h-[8rem] flex justify-between items-center py-4 px-8">
 			<div>
 				<Logo />
 			</div>

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Movie } from "@/types/movie";
 
 import MovieBookmark from "./MovieBookmark";
@@ -13,7 +15,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
 	if (!movie) return null;
 
 	return (
-		<div className="p-4 rounded-xl bg-gray-800 hover:bg-gray-700 transition-colors">
+		<Link href={`/movies/${movie.id}`} className="flex flex-col gap-2 p-4 rounded-xl bg-gray-800 hover:bg-gray-700 transition-colors">
 			<MoviePoster
 				src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
 				alt={movie.title}
@@ -24,7 +26,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
 				<MovieBookmark movieId={movie.id} isBookmarked={movie.is_bookmarked} />
 			</div>
 			<MovieDate date={movie.release_date} />
-		</div>
+		</Link>
 	);
 };
 
